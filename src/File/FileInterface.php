@@ -21,6 +21,11 @@ interface FileInterface {
     /**
      * @return string
      */
+    public function fileWithPath();
+
+    /**
+     * @return string
+     */
     public function fileName();
 
     /**
