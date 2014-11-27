@@ -1,0 +1,18 @@
+{
+    "name": "sebastiansulinski/file",
+    "description": "File information package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sebastian Sulinski",
+            "email": "info@ssdtutorials.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "SSD\\": "src"
+        }
+    }
+}
