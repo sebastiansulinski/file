@@ -9,27 +9,27 @@ interface FileInterface {
     /**
      * @param $dot
      *
-     * @return mixed
+     * @return string
      */
     public function extension($dot);
 
     /**
-     * @return mixed
+     * @return FileSize
      */
     public function fileSize();
 
     /**
-     * @return mixed
+     * @return string
      */
     public function fileName();
 
     /**
-     * @return mixed
+     * @return string
      */
     public function mimeType();
 
     /**
-     * @return mixed
+     * @return string
      */
     public function __toString();
 
