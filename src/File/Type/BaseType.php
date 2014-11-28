@@ -29,15 +29,7 @@ abstract class BaseType {
 
         $this->file = $file;
 
-        $this->processPath();
-
     }
-
-
-    /**
-     * @return mixed
-     */
-    abstract protected function processPath();
 
 
     /**
@@ -68,6 +60,12 @@ abstract class BaseType {
      */
     final public function fileSize()
     {
+
+        if (empty($this->fileSize)) {
+
+            $this->processFileSize();
+
+        }
 
         return $this->fileSize;
 
