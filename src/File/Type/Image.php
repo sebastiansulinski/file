@@ -34,19 +34,6 @@ class Image extends BaseType implements FileInterface {
     /**
      * @return void
      */
-    protected function processPath()
-    {
-
-        $this->processGetImageSize();
-
-        $this->processFileSize();
-
-    }
-
-
-    /**
-     * @return void
-     */
     private function processGetImageSize()
     {
 
@@ -65,6 +52,12 @@ class Image extends BaseType implements FileInterface {
     public function width()
     {
 
+        if (empty($this->width)) {
+
+            $this->processGetImageSize();
+
+        }
+
         return $this->width;
 
     }
@@ -75,6 +68,12 @@ class Image extends BaseType implements FileInterface {
      */
     public function height()
     {
+
+        if (empty($this->height)) {
+
+            $this->processGetImageSize();
+
+        }
 
         return $this->height;
 
@@ -87,6 +86,12 @@ class Image extends BaseType implements FileInterface {
     public function type()
     {
 
+        if (empty($this->type)) {
+
+            $this->processGetImageSize();
+
+        }
+
         return $this->type;
 
     }
@@ -97,6 +102,12 @@ class Image extends BaseType implements FileInterface {
      */
     public function attributes()
     {
+
+        if (empty($this->attributes)) {
+
+            $this->processGetImageSize();
+
+        }
 
         return $this->attributes;
 
