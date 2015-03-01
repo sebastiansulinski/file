@@ -3,34 +3,44 @@
 namespace SSD\File;
 
 
-use \SSD\File\Exception\InvalidArgument;
-use \SSD\File\Mime\Mime;
+use SSD\File\Exception\InvalidArgument;
+use SSD\File\Mime\Mime;
 
 
 class File {
 
     /**
-     * @var
+     * Path to the file including file name.
+     *
+     * @var string
      */
     private $fileWithPath;
 
     /**
-     * @var
+     * File name.
+     *
+     * @var string
      */
     private $fileName;
 
     /**
-     * @var
+     * File name without extension.
+     *
+     * @var string
      */
     private $fileNameWithoutExtension;
 
     /**
-     * @var
+     * Extension without a dot.
+     *
+     * @var string
      */
     private $extension;
 
 
     /**
+     * Mime object instance.
+     *
      * @var Mime
      */
     private $mime;
@@ -38,6 +48,8 @@ class File {
 
 
     /**
+     * Constructor.
+     *
      * @param $fileWithPath
      *
      * @throws InvalidArgument
@@ -53,6 +65,8 @@ class File {
 
 
     /**
+     * Check if file exists.
+     *
      * @param $fileWithPath
      *
      * @throws InvalidArgument
@@ -62,7 +76,7 @@ class File {
     private function validateFile($fileWithPath)
     {
 
-        if (! is_file($fileWithPath)) {
+        if ( ! is_file($fileWithPath)) {
 
             throw new InvalidArgument;
 
@@ -72,6 +86,8 @@ class File {
 
 
     /**
+     * Extract the name of the file.
+     *
      * @return void
      */
     private function extractFileName()
@@ -88,6 +104,8 @@ class File {
 
 
     /**
+     * Extract extension of the file.
+     *
      * @return void
      */
     private function extractExtension()
@@ -100,6 +118,8 @@ class File {
 
 
     /**
+     * Extract file name without the extension.
+     *
      * @return void
      */
     private function extractFileNameWithoutExtension()
@@ -111,6 +131,8 @@ class File {
 
 
     /**
+     * Instantiate Mime object based on current object.
+     *
      * @return void
      */
     private function extractMime()
@@ -122,6 +144,8 @@ class File {
 
 
     /**
+     * Extract all necessary properties.
+     *
      * @param $fileWithPath
      *
      * @return void
@@ -143,7 +167,9 @@ class File {
 
 
     /**
-     * @return mixed
+     * Return name of the file with full path.
+     *
+     * @return string
      */
     public function withPath()
     {
@@ -154,6 +180,8 @@ class File {
 
 
     /**
+     * Return name of the file.
+     *
      * @return mixed
      */
     public function name()
@@ -165,6 +193,8 @@ class File {
 
 
     /**
+     * Return name of the file without extension.
+     *
      * @return mixed
      */
     public function nameWithoutExtension()
@@ -176,6 +206,8 @@ class File {
 
 
     /**
+     * Return extension with or without a dot.
+     *
      * @param bool $dot
      *
      * @return string
@@ -189,6 +221,8 @@ class File {
 
 
     /**
+     * Return Mime object instance.
+     *
      * @return Mime
      */
     public function mime()
