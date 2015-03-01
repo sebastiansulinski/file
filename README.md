@@ -5,13 +5,13 @@ File information package for different file types.
 Currently contains only Image implementation.
 
 
-**Usage**
+## Usage
 
 ```
 require_once "vendor/autoload.php";
 
-use \SSD\File\File;
-use \SSD\File\Type\Image;
+use SSD\File\File;
+use SSD\File\Type\Image;
 
 
 $image = new Image(new File('/path/to/the/file'));
