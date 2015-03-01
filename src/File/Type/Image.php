@@ -3,7 +3,7 @@
 namespace SSD\File\Type;
 
 
-use \SSD\File\FileInterface;
+use SSD\File\FileInterface;
 
 
 class Image extends BaseType implements FileInterface {
