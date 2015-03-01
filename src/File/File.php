@@ -1,6 +1,4 @@
-<?php
-
-namespace SSD\File;
+<?php namespace SSD\File;
 
 
 use SSD\File\Exception\InvalidArgument;
