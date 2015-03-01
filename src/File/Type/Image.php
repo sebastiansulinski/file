@@ -9,29 +9,38 @@ use \SSD\File\FileInterface;
 class Image extends BaseType implements FileInterface {
 
     /**
-     * @var
+     * Width of the image.
+     *
+     * @var int
      */
     private $width;
 
     /**
-     * @var
+     * Height of the image.
+     *
+     * @var int
      */
     private $height;
 
     /**
-     * @var
+     * Type of the image.
+     *
+     * @var string
      */
     private $type;
 
-    /**
-     * @var
+    /** Additional attributes
+     *
+     * @var array
      */
-    private $attributes;
+    private $attributes = [];
 
 
 
 
     /**
+     * Extract information about the file.
+     *
      * @return void
      */
     private function processGetImageSize()
@@ -47,7 +56,9 @@ class Image extends BaseType implements FileInterface {
 
 
     /**
-     * @return mixed
+     * Return width of the file.
+     *
+     * @return int
      */
     public function width()
     {
@@ -64,7 +75,9 @@ class Image extends BaseType implements FileInterface {
 
 
     /**
-     * @return mixed
+     * Return height of the file.
+     *
+     * @return int
      */
     public function height()
     {
@@ -81,7 +94,9 @@ class Image extends BaseType implements FileInterface {
 
 
     /**
-     * @return mixed
+     * Return type of the file.
+     *
+     * @return string
      */
     public function type()
     {
@@ -98,7 +113,9 @@ class Image extends BaseType implements FileInterface {
 
 
     /**
-     * @return mixed
+     * Return additional attributes.
+     *
+     * @return array
      */
     public function attributes()
     {
@@ -115,6 +132,8 @@ class Image extends BaseType implements FileInterface {
 
 
     /**
+     * Return file data as string.
+     *
      * @return string
      */
     public function __toString()
