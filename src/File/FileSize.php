@@ -18,6 +18,8 @@ class FileSize {
     const CONCATENATOR = " ";
 
     /**
+     * File size in bytes.
+     *
      * @var int
      */
     private $size;
@@ -25,6 +27,8 @@ class FileSize {
 
 
     /**
+     * Constructor.
+     *
      * @param File $file
      */
     function __construct(File $file)
@@ -36,6 +40,8 @@ class FileSize {
 
 
     /**
+     * Return file size in bytes.
+     *
      * @return int
      */
     public function inBytes()
@@ -47,6 +53,8 @@ class FileSize {
 
 
     /**
+     * Return file size in bytes with postfix.
+     *
      * @return string
      */
     public function inBytesPostfix()
@@ -58,6 +66,8 @@ class FileSize {
 
 
     /**
+     * Return file size in KB.
+     *
      * @param int $decimal
      *
      * @return float
@@ -71,6 +81,8 @@ class FileSize {
 
 
     /**
+     * Return file size in KB with postfix.
+     *
      * @param int $decimal
      *
      * @return string
@@ -84,6 +96,8 @@ class FileSize {
 
 
     /**
+     * Return file size in MB.
+     *
      * @param int $decimal
      *
      * @return float
@@ -97,6 +111,8 @@ class FileSize {
 
 
     /**
+     * Return file size in MB with postfix.
+     *
      * @param int $decimal
      *
      * @return string
@@ -110,6 +126,8 @@ class FileSize {
 
 
     /**
+     * Return file size in bytes as string.
+     *
      * @return string
      */
     public function __toString()
