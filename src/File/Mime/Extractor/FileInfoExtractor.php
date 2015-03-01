@@ -1,19 +1,26 @@
-<?php
-
-namespace SSD\File\Mime\Extractor;
+<?php namespace SSD\File\Mime\Extractor;
 
 
-use \finfo;
+use finfo;
 
-use \SSD\File\File;
+use SSD\File\File;
 
 
 class FileInfoExtractor implements ExtractorInterface {
 
+    /**
+     * Instance of the File object.
+     *
+     * @var File
+     */
     private $file;
 
 
-
+    /**
+     * Constructor.
+     *
+     * @param File $file
+     */
     public function __construct(File $file)
     {
 
@@ -23,6 +30,8 @@ class FileInfoExtractor implements ExtractorInterface {
 
 
     /**
+     * Return the right constant.
+     *
      * @return int
      */
     private function getConstant()
@@ -37,7 +46,11 @@ class FileInfoExtractor implements ExtractorInterface {
     }
 
 
-
+    /**
+     * Return the file type.
+     *
+     * @return string
+     */
     public function type()
     {
 
