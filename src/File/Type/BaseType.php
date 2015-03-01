@@ -3,18 +3,21 @@
 namespace SSD\File\Type;
 
 
-use \SSD\File\FileSize;
-use \SSD\File\File;
+use SSD\File\FileSize;
+use SSD\File\File;
 
 
 abstract class BaseType {
 
     /**
+     * File object instance.
+     *
      * @var File
      */
     protected $file;
 
     /**
+     * FileSize object instance.
      * @var FileSize
      *
      */
@@ -22,6 +25,8 @@ abstract class BaseType {
 
 
     /**
+     * Constructor.
+     *
      * @param File $file
      */
     public function __construct(File $file)
@@ -33,6 +38,8 @@ abstract class BaseType {
 
 
     /**
+     * Instantiate FileSize object.
+     *
      * @return void
      */
     final protected function processFileSize()
@@ -43,6 +50,8 @@ abstract class BaseType {
 
 
     /**
+     * Return the file extension.
+     *
      * @param bool $dot
      *
      * @return string
@@ -56,6 +65,8 @@ abstract class BaseType {
 
 
     /**
+     * Return FileSize object.
+     *
      * @return FileSize
      */
     final public function fileSize()
@@ -73,6 +84,8 @@ abstract class BaseType {
 
 
     /**
+     * Return file name with full path.
+     *
      * @return string
      */
     final public function fileWithPath()
@@ -84,6 +97,8 @@ abstract class BaseType {
 
 
     /**
+     * Return file name.
+     *
      * @return string
      */
     final public function fileName()
@@ -95,6 +110,8 @@ abstract class BaseType {
 
 
     /**
+     * Return file name without extension.
+     *
      * @return string
      */
     final public function fileNameWithoutExtension()
@@ -106,6 +123,8 @@ abstract class BaseType {
 
 
     /**
+     * Return mime type.
+     *
      * @return string
      */
     final public function mimeType()
@@ -118,6 +137,8 @@ abstract class BaseType {
 
 
     /**
+     * Create new value.
+     *
      * @param $value
      * @param $key
      *
@@ -132,6 +153,8 @@ abstract class BaseType {
 
 
     /**
+     * Return all data to string.
+     *
      * @param array $elements
      *
      * @return string
