@@ -1,9 +1,9 @@
 <?php
 
-use \SSD\File\File;
+use SSD\File\File;
 
 
-class FileTest extends \PHPUnit_Framework_TestCase {
+class FileTest extends PHPUnit_Framework_TestCase {
 
 
     protected $file;
