@@ -1,28 +1,32 @@
-<?php
-
-namespace SSD\File\Mime;
+<?php namespace SSD\File\Mime;
 
 
-use \SSD\File\File;
+use SSD\File\File;
 
-use \SSD\File\Mime\Extractor\ExtensionExtractor;
-use \SSD\File\Mime\Extractor\FileInfoExtractor;
+use SSD\File\Mime\Extractor\ExtensionExtractor;
+use SSD\File\Mime\Extractor\FileInfoExtractor;
 
 
 class Mime {
 
     /**
+     * Instance of the File object.
+     *
      * @var File
      */
     private $file;
 
     /**
-     * @var
+     * File type.
+     *
+     * @var string
      */
     private $type;
 
 
     /**
+     * Constructor.
+     *
      * @param File $file
      */
     public function __construct(File $file)
@@ -36,7 +40,9 @@ class Mime {
 
 
     /**
-     * @return ExtensionExtractor|ExtractorInterface
+     * Return extractor instance.
+     *
+     * @return ExtensionExtractor|ExtensionExtractor
      */
     private function extractor()
     {
@@ -53,6 +59,8 @@ class Mime {
 
 
     /**
+     * Extract the mime type of the file.
+     *
      * @return void
      */
     private function extract()
@@ -64,6 +72,8 @@ class Mime {
 
 
     /**
+     * Return the mime type.
+     *
      * @return string
      */
     public function type()
