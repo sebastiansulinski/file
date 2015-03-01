@@ -1,20 +1,22 @@
-<?php
-
-namespace SSD\File\Mime;
+<?php namespace SSD\File\Mime;
 
 
-use \SSD\File\Exception\NonExistentIndex;
+use SSD\File\Exception\NonExistentIndex;
 
 
 class MimeMap {
 
     /**
+     * Array of mime types.
+     *
      * @var array
      */
     private static $types;
 
 
     /**
+     * Return array of types.
+     *
      * @return array
      */
     public static function get()
@@ -32,6 +34,8 @@ class MimeMap {
 
 
     /**
+     * Return mime type by extension.
+     *
      * @param $extension
      *
      * @return string
@@ -40,7 +44,7 @@ class MimeMap {
     public static function byExtension($extension)
     {
 
-        if (!static::extensionExists($extension)) {
+        if ( ! static::extensionExists($extension)) {
 
             throw new NonExistentIndex;
 
@@ -52,6 +56,8 @@ class MimeMap {
 
 
     /**
+     * Check whether extension exists in the $types array.
+     *
      * @param $extension
      *
      * @return bool
