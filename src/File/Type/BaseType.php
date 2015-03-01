@@ -1,6 +1,4 @@
-<?php
-
-namespace SSD\File\Type;
+<?php namespace SSD\File\Type;
 
 
 use SSD\File\FileSize;
