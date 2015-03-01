@@ -3,7 +3,7 @@
 namespace SSD\File\Exception;
 
 
-use \Exception;
+use Exception;
 
 
 class NonExistentIndex extends Exception {
