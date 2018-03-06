@@ -1,175 +1,125 @@
-<?php namespace SSD\File\Type;
+<?php
 
+namespace SSD\File\Type;
 
-use SSD\File\FileSize;
 use SSD\File\File;
+use SSD\File\Exception\InvalidFile;
 
-
-abstract class BaseType {
-
+/**
+ * Class BaseType
+ *
+ * @package SSD\File\Type
+ *
+ * @method string path()
+ * @method string name()
+ * @method string nameWithoutExtension()
+ * @method string extension(bool $withDot = false)
+ * @method string mimeType()
+ *
+ * @method int sizeInBytes()
+ * @method string sizeInBytesPostfix(string $concatenator = '')
+ * @method float sizeInKiloBytes(int $decimal = 2)
+ * @method string sizeInKiloBytesPostfix(int $decimal = 2, string $concatenator = '')
+ * @method float sizeInMegaBytes(int $decimal = 2)
+ * @method string sizeInMegaBytesPostfix($decimal = 2, string $concatenator = '')
+ * @method string sizeToString()
+ */
+abstract class BaseType
+{
     /**
      * File object instance.
      *
-     * @var File
+     * @var \SSD\File\File
      */
     protected $file;
 
     /**
-     * FileSize object instance.
-     * @var FileSize
+     * BaseType constructor.
      *
-     */
-    private $fileSize;
-
-
-    /**
-     * Constructor.
-     *
-     * @param File $file
+     * @param  \SSD\File\File $file
+     * @throws \SSD\File\Exception\InvalidFile
      */
     public function __construct(File $file)
     {
-
         $this->file = $file;
 
+        $this->validateFile();
+        $this->parseFile();
     }
 
-
     /**
-     * Instantiate FileSize object.
+     * Validate file.
      *
      * @return void
+     * @throws \SSD\File\Exception\InvalidFile
      */
-    final protected function processFileSize()
+    private function validateFile(): void
     {
-
-        $this->fileSize = new FileSize($this->file);
-    }
-
-
-    /**
-     * Return the file extension.
-     *
-     * @param bool $dot
-     *
-     * @return string
-     */
-    final public function extension($dot = false)
-    {
-
-        return $this->file->extension($dot);
-
-    }
-
-
-    /**
-     * Return FileSize object.
-     *
-     * @return FileSize
-     */
-    final public function fileSize()
-    {
-
-        if (empty($this->fileSize)) {
-
-            $this->processFileSize();
-
+        if (!$this->isValid()) {
+            throw new InvalidFile;
         }
-
-        return $this->fileSize;
-
     }
 
-
     /**
-     * Return file name with full path.
+     * Determine if file is valid.
      *
-     * @return string
+     * @return bool
      */
-    final public function fileWithPath()
-    {
-
-        return $this->file->withPath();
-
-    }
-
+    abstract protected function isValid(): bool;
 
     /**
-     * Return file name.
-     *
-     * @return string
-     */
-    final public function fileName()
-    {
-
-        return $this->file->name();
-
-    }
-
-
-    /**
-     * Return file name without extension.
-     *
-     * @return string
-     */
-    final public function fileNameWithoutExtension()
-    {
-
-        return $this->file->nameWithoutExtension();
-
-    }
-
-
-    /**
-     * Return mime type.
-     *
-     * @return string
-     */
-    final public function mimeType()
-    {
-
-        return $this->file->mime()
-                          ->type();
-
-    }
-
-
-    /**
-     * Create new value.
-     *
-     * @param $value
-     * @param $key
+     * Parse file.
      *
      * @return void
      */
-    final private function arrayToString(&$value, $key)
-    {
-
-        $value = "[{$key}] : {$value}";
-
-    }
-
+    abstract protected function parseFile(): void;
 
     /**
-     * Return all data to string.
+     * Get class instance as array.
      *
-     * @param array $elements
+     * @return array
+     */
+    abstract public function toArray(): array;
+
+    /**
+     * Get class instance as json.
      *
      * @return string
      */
-    final protected function formatToString(array $elements)
+    public function toJson(): string
     {
-
-        array_walk_recursive($elements, [$this, "arrayToString"]);
-
-        return implode(
-            PHP_EOL,
-            $elements
-        );
-
+        return json_encode($this->toArray());
     }
 
+    /**
+     * Get class instance as string.
+     *
+     * @return string
+     */
+    public function toString(): string
+    {
+        return $this->__toString();
+    }
 
+    /**
+     * Get class instance as string.
+     *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
 
-
+    /**
+     * Delegate method call.
+     *
+     * @param  string $name
+     * @param  array $arguments
+     * @return mixed
+     */
+    public function __call(string $name, array $arguments = [])
+    {
+        return $this->file->{$name}(...$arguments);
+    }
 } 

@@ -2,16 +2,9 @@
 
 namespace SSD\File\Exception;
 
-
 use Exception;
 
-
-class NonExistentIndex extends Exception {
-
-    /**
-     * @var string
-     */
+class IndexNotFound extends Exception
+{
     protected $message = 'Index does not exist';
-
-
 } 

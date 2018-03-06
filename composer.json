@@ -9,10 +9,21 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {},
+    "require": {
+        "php": "^7.1",
+        "ext-finfo": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.0"
+    },
     "autoload": {
         "psr-4": {
-            "SSD\\": "src"
+            "SSD\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SSDTest\\": "tests/"
         }
     }
 }

@@ -1,236 +1,187 @@
-<?php namespace SSD\File;
+<?php
 
+namespace SSD\File;
 
+use SSD\File\Exception\MethodNotFound;
 use SSD\File\Exception\InvalidArgument;
-use SSD\File\Mime\Mime;
 
-
-class File {
+/**
+ * Class File
+ *
+ * @package SSD\File
+ *
+ * @method int sizeInBytes()
+ * @method string sizeInBytesPostfix(string $concatenator = '')
+ * @method float sizeInKiloBytes(int $decimal = 2)
+ * @method string sizeInKiloBytesPostfix(int $decimal = 2, string $concatenator = '')
+ * @method float sizeInMegaBytes(int $decimal = 2)
+ * @method string sizeInMegaBytesPostfix($decimal = 2, string $concatenator = '')
+ * @method string sizeToString()
+ */
+class File
+{
+    /**
+     * File info.
+     *
+     * @var array
+     */
+    private $fileInfo = [];
 
     /**
-     * Path to the file including file name.
+     * Absolute file path.
      *
      * @var string
      */
-    private $fileWithPath;
+    private $path;
 
     /**
-     * File name.
+     * Size instance.
      *
-     * @var string
+     * @var \SSD\File\Size
      */
-    private $fileName;
+    private $size;
 
     /**
-     * File name without extension.
+     * Mime instance.
      *
-     * @var string
-     */
-    private $fileNameWithoutExtension;
-
-    /**
-     * Extension without a dot.
-     *
-     * @var string
-     */
-    private $extension;
-
-
-    /**
-     * Mime object instance.
-     *
-     * @var Mime
+     * @var \SSD\File\Mime
      */
     private $mime;
 
-
-
     /**
-     * Constructor.
+     * File constructor.
      *
-     * @param $fileWithPath
-     *
-     * @throws InvalidArgument
+     * @param  string $filePath
+     * @throws \SSD\File\Exception\InvalidArgument
+     * @throws \SSD\File\Exception\DependencyNotFound
      */
-    function __construct($fileWithPath)
+    public function __construct($filePath)
     {
+        $this->path = $filePath;
 
-        $this->validateFile($fileWithPath);
-
-        $this->extractProperties($fileWithPath);
-
+        $this->validateFile();
+        $this->extractProperties();
     }
-
 
     /**
      * Check if file exists.
      *
-     * @param $fileWithPath
-     *
-     * @throws InvalidArgument
-     *
+     * @throws \SSD\File\Exception\InvalidArgument
      * @return void
      */
-    private function validateFile($fileWithPath)
+    private function validateFile(): void
     {
-
-        if ( ! is_file($fileWithPath)) {
-
+        if (!is_file($this->path)) {
             throw new InvalidArgument;
-
         }
-
     }
-
-
-    /**
-     * Extract the name of the file.
-     *
-     * @return void
-     */
-    private function extractFileName()
-    {
-
-        $pathArray = explode(
-            DIRECTORY_SEPARATOR,
-            $this->fileWithPath
-        );
-
-        $this->fileName = array_pop($pathArray);
-
-    }
-
-
-    /**
-     * Extract extension of the file.
-     *
-     * @return void
-     */
-    private function extractExtension()
-    {
-
-        $nameParts = explode('.', $this->fileName);
-        $this->extension = strtolower(array_pop($nameParts));
-
-    }
-
-
-    /**
-     * Extract file name without the extension.
-     *
-     * @return void
-     */
-    private function extractFileNameWithoutExtension()
-    {
-
-        $this->fileNameWithoutExtension = rtrim($this->fileName, $this->extension(true));
-
-    }
-
-
-    /**
-     * Instantiate Mime object based on current object.
-     *
-     * @return void
-     */
-    private function extractMime()
-    {
-
-        $this->mime = new Mime($this);
-
-    }
-
 
     /**
      * Extract all necessary properties.
      *
-     * @param $fileWithPath
+     * @return void
+     * @throws \SSD\File\Exception\DependencyNotFound
+     */
+    private function extractProperties(): void
+    {
+        $this->fileInfo = pathinfo($this->path);
+
+        $this->extractSize();
+        $this->extractMime();
+    }
+
+    /**
+     * Instantiate FileSize.
      *
      * @return void
      */
-    private function extractProperties($fileWithPath)
+    private function extractSize(): void
     {
-
-        $this->fileWithPath = $fileWithPath;
-
-        $this->extractFileName();
-
-        $this->extractExtension();
-
-        $this->extractFileNameWithoutExtension();
-
-        $this->extractMime();
-
+        $this->size = new Size($this);
     }
 
+    /**
+     * Instantiate Mime.
+     *
+     * @return void
+     * @throws \SSD\File\Exception\DependencyNotFound
+     */
+    private function extractMime(): void
+    {
+        $this->mime = new Mime($this);
+    }
 
     /**
-     * Return name of the file with full path.
+     * Get absolute file path.
      *
      * @return string
      */
-    public function withPath()
+    public function path(): string
     {
-
-        return $this->fileWithPath;
-
+        return $this->path;
     }
 
-
     /**
-     * Return name of the file.
-     *
-     * @return mixed
-     */
-    public function name()
-    {
-
-        return $this->fileName;
-
-    }
-
-
-    /**
-     * Return name of the file without extension.
-     *
-     * @return mixed
-     */
-    public function nameWithoutExtension()
-    {
-
-        return $this->fileNameWithoutExtension;
-
-    }
-
-
-    /**
-     * Return extension with or without a dot.
-     *
-     * @param bool $dot
+     * Get file name with extension.
      *
      * @return string
      */
-    public function extension($dot = false)
+    public function name(): string
     {
-
-        return $dot ? '.'.$this->extension : $this->extension;
-
+        return $this->fileInfo['basename'];
     }
-
 
     /**
-     * Return Mime object instance.
+     * Get name of the file without extension.
      *
-     * @return Mime
+     * @return string
      */
-    public function mime()
+    public function nameWithoutExtension(): string
     {
-
-        return $this->mime;
-
+        return $this->fileInfo['filename'];
     }
 
+    /**
+     * Get extension with or without a dot.
+     *
+     * @param  bool $withDot
+     * @return string
+     */
+    public function extension(bool $withDot = false): string
+    {
+        if ($withDot) {
+            return '.'.$this->fileInfo['extension'];
+        }
 
+        return $this->fileInfo['extension'];
+    }
 
+    /**
+     * Get Mime.
+     *
+     * @return string
+     */
+    public function mimeType(): string
+    {
+        return $this->mime->type();
+    }
 
+    /**
+     * Delegate method call.
+     *
+     * @param  string $name
+     * @param  array $arguments
+     * @return mixed
+     * @throws \SSD\File\Exception\MethodNotFound
+     */
+    public function __call(string $name, array $arguments = [])
+    {
+        if (substr($name, 0, 4) !== 'size') {
+            throw new MethodNotFound;
+        }
+
+        $methodName = lcfirst(substr($name, 4));
+
+        return $this->size->{$methodName}(...$arguments);
+    }
 }

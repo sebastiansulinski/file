@@ -1,163 +1,147 @@
-<?php namespace SSD\File\Type;
+<?php
 
+namespace SSD\File\Type;
 
-use SSD\File\FileInterface;
-
-
-class Image extends BaseType implements FileInterface {
-
+class Image extends BaseType
+{
     /**
-     * Width of the image.
+     * Image width.
      *
      * @var int
      */
     private $width;
 
     /**
-     * Height of the image.
+     * Image height.
      *
      * @var int
      */
     private $height;
 
     /**
-     * Type of the image.
+     * Image type.
      *
-     * @var string
+     * @var int
      */
     private $type;
 
-    /** Additional attributes
+    /**
+     * Height and width attributes.
      *
-     * @var array
+     * @var string
      */
-    private $attributes = [];
-
-
-
+    private $attributes;
 
     /**
-     * Extract information about the file.
+     * Determine if file is valid.
+     *
+     * @return bool
+     */
+    protected function isValid(): bool
+    {
+        return explode('/', $this->file->mimeType())[0] === 'image';
+    }
+
+    /**
+     * Parse file.
      *
      * @return void
      */
-    private function processGetImageSize()
+    protected function parseFile(): void
     {
-
-        list(
+        [
             $this->width,
             $this->height,
             $this->type,
             $this->attributes
-            ) = getimagesize($this->file->withPath());
+        ] = getimagesize($this->file->path());
     }
 
-
     /**
-     * Return width of the file.
+     * Get width.
      *
      * @return int
      */
-    public function width()
+    public function width(): int
     {
-
-        if (empty($this->width)) {
-
-            $this->processGetImageSize();
-
-        }
-
         return $this->width;
-
     }
 
-
     /**
-     * Return height of the file.
+     * Get height.
      *
      * @return int
      */
-    public function height()
+    public function height(): int
     {
-
-        if (empty($this->height)) {
-
-            $this->processGetImageSize();
-
-        }
-
         return $this->height;
-
     }
 
+    /**
+     * Get type.
+     *
+     * @return int
+     */
+    public function type(): int
+    {
+        return $this->type;
+    }
 
     /**
-     * Return type of the file.
+     * Get additional attributes.
      *
      * @return string
      */
-    public function type()
+    public function attributes(): string
     {
-
-        if (empty($this->type)) {
-
-            $this->processGetImageSize();
-
-        }
-
-        return $this->type;
-
+        return $this->attributes;
     }
 
+    /**
+     * Determine if image is landscape.
+     *
+     * @return bool
+     */
+    public function isLandscape(): bool
+    {
+        return $this->width > $this->height;
+    }
 
     /**
-     * Return additional attributes.
+     * Determine if image is portrait.
+     *
+     * @return bool
+     */
+    public function isPortrait(): bool
+    {
+        return !$this->isLandscape();
+    }
+
+    /**
+     * Get class instance as array.
      *
      * @return array
      */
-    public function attributes()
+    public function toArray(): array
     {
-
-        if (empty($this->attributes)) {
-
-            $this->processGetImageSize();
-
-        }
-
-        return $this->attributes;
-
+        return [
+            'path' => $this->path(),
+            'name' => $this->name(),
+            'name_without_extension' => $this->nameWithoutExtension(),
+            'extension' => $this->extension(),
+            'mime_type' => $this->mimeType(),
+            'size_in_bytes' => $this->sizeInBytes(),
+            'size_in_bytes_postfix' => $this->sizeInBytesPostfix(),
+            'size_in_kilobytes' => $this->sizeInKiloBytes(),
+            'size_in_kilobytes_postfix' => $this->sizeInKiloBytesPostfix(),
+            'size_in_megabytes' => $this->sizeInMegaBytes(),
+            'size_in_megabytes_postfix' => $this->sizeInMegaBytesPostfix(),
+            'width' => $this->width,
+            'height' => $this->height,
+            'type' => $this->type,
+            'attributes' => $this->attributes,
+            'is_landscape' => $this->isLandscape(),
+            'is_portrait' => $this->isPortrait(),
+        ];
     }
-
-
-    /**
-     * Return file data as string.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-
-        return $this->formatToString(
-            [
-                'width' => $this->width(),
-                'height' => $this->height(),
-                'type' => $this->type(),
-                'extension' => $this->extension(),
-                'size in bytes' => $this->fileSize()->inBytes(),
-                'size in bytes postfix' => $this->fileSize()->inBytesPostfix(),
-                'size in kilo bytes' => $this->fileSize()->inKiloBytes(2),
-                'size in kilo bytes postfix' => $this->fileSize()->inKiloBytesPostfix(2),
-                'size in mega bytes' => $this->fileSize()->inMegaBytes(2),
-                'size in mega bytes postfix' => $this->fileSize()->inMegaBytesPostfix(2),
-                'file name' => $this->fileName(),
-                'file name without extension' => $this->fileNameWithoutExtension(),
-                'file with path' => $this->fileWithPath(),
-                'mime type' => $this->mimeType()
-            ]
-        );
-
-    }
-
-
-
 }

@@ -2,39 +2,56 @@ File information package
 ====
 
 File information package for different file types.
-Currently contains only Image implementation.
+Currently contains only Image file type implementation.
+
+[![Build Status](https://travis-ci.org/sebastiansulinski/file.svg?branch=master)](https://travis-ci.org/sebastiansulinski/file)
 
 
 ## Usage
 
-```
+```php
 require_once "vendor/autoload.php";
 
 use SSD\File\File;
 use SSD\File\Type\Image;
 
 
-$image = new Image(new File('/path/to/the/file'));
+$image = new Image(new File('/path/to/the/file.jpg'));
 
+// File specific info
+echo $image->path();
+echo $image->name();
+echo $image->nameWithoutExtension();
+echo $image->extension();
+echo $image->mimeType();
+
+// Size specific info
+echo $image->sizeInBytes();
+echo $image->sizeInBytesPostfix();
+echo $image->sizeInKiloBytes();
+echo $image->sizeInKiloBytesPostfix();
+echo $image->sizeInMegaBytes();
+echo $image->sizeInMegaBytesPostfix();
+
+// Image specific info
 echo $image->width();
 echo $image->height();
 echo $image->type();
 echo $image->attributes();
+echo $image->isLandscape();
+echo $image->isPortrait();
 
-echo $image->extension();
-echo $image->fileName();
-echo $image->fileWithPath();
-echo $image->fileNameWithoutExtension();
-echo $image->mimeType();
+// Methods returning all of the above
 
-echo $image->fileSize();
-echo $image->fileSize()->inBytes();
-echo $image->fileSize()->inBytesPostfix();
-echo $image->fileSize()->inKiloBytes();
-echo $image->fileSize()->inKiloBytesPostfix();
-echo $image->fileSize()->inMegaBytes();
-echo $image->fileSize()->inMegaBytesPostfix();
+// as array
+$image->toArray();
 
-echo $image; // __toString() with all of the above returned as string
+// as json
+$image->toJson();
 
+// as json
+$image->toString();
+
+// as json using __toString()
+echo $image;
 ```

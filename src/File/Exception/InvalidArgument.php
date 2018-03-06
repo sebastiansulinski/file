@@ -2,16 +2,9 @@
 
 namespace SSD\File\Exception;
 
-
 use Exception;
 
-
-class InvalidArgument extends Exception {
-
-    /**
-     * @var string
-     */
+class InvalidArgument extends Exception
+{
     protected $message = 'Invalid argument';
-
-
 } 
