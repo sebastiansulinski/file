@@ -118,6 +118,17 @@ class Image extends BaseType
     }
 
     /**
+     * Determine if image is one of the specified types.
+     *
+     * @param  array ...$types
+     * @return bool
+     */
+    public function isOfType(...$types): bool
+    {
+        return in_array($this->type, $types);
+    }
+
+    /**
      * Get class instance as array.
      *
      * @return array

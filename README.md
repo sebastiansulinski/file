@@ -19,27 +19,30 @@ use SSD\File\Type\Image;
 $image = new Image(new File('/path/to/the/file.jpg'));
 
 // File specific info
-echo $image->path();
-echo $image->name();
-echo $image->nameWithoutExtension();
-echo $image->extension();
-echo $image->mimeType();
+echo $image->path(); // /path/to/the/file.jpg
+echo $image->name(); // file.jpg
+echo $image->nameWithoutExtension(); // file
+echo $image->extension(); // jpg
+echo $image->extension(true); // .jpg
+echo $image->mimeType(); // image/jpeg
 
 // Size specific info
-echo $image->sizeInBytes();
-echo $image->sizeInBytesPostfix();
-echo $image->sizeInKiloBytes();
-echo $image->sizeInKiloBytesPostfix();
-echo $image->sizeInMegaBytes();
-echo $image->sizeInMegaBytesPostfix();
+echo $image->sizeInBytes(); // 49275
+echo $image->sizeInBytesPostfix(); // 49275B
+echo $image->sizeInKiloBytes(); // 48.12
+echo $image->sizeInKiloBytesPostfix(); // 48.12KB
+echo $image->sizeInMegaBytes(); // 0.05
+echo $image->sizeInMegaBytesPostfix(); // 0.05MB
+echo $image->sizeInMegaBytesPostfix(3, ' '); // 0.047 MB
 
 // Image specific info
-echo $image->width();
-echo $image->height();
-echo $image->type();
-echo $image->attributes();
-echo $image->isLandscape();
-echo $image->isPortrait();
+echo $image->width(); // 600
+echo $image->height(); // 450
+echo $image->type(); // 1
+echo $image->attributes(); // width="600" height="450"
+echo $image->isLandscape(); // true / false
+echo $image->isPortrait(); // true / false
+echo $image->isOfType(IMG_JPG, IMG_PNG); // true / false
 
 // Methods returning all of the above
 

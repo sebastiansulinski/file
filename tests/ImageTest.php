@@ -52,9 +52,18 @@ class ImageTest extends TestCase
         $this->assertEquals(48.12, $data['size_in_kilobytes']);
         $this->assertEquals('48.12KB', $data['size_in_kilobytes_postfix']);
         $this->assertEquals('48.12 KB', $image->sizeInKiloBytesPostfix(3, ' '));
-        $this->assertEquals('0.05', $data['size_in_megabytes']);
+        $this->assertEquals(0.05, $data['size_in_megabytes']);
         $this->assertEquals('0.05MB', $data['size_in_megabytes_postfix']);
         $this->assertEquals('0.047 MB', $image->sizeInMegaBytesPostfix(3, ' '));
+        $this->assertEquals(600, $data['width']);
+        $this->assertEquals(450, $data['height']);
+        $this->assertEquals(IMG_JPEG, $data['type']);
+        $this->assertEquals(IMG_JPG, $data['type']);
+        $this->assertTrue($image->isOfType(IMG_JPEG, IMG_JPG));
+        $this->assertFalse($image->isOfType(IMG_PNG, IMG_GIF, IMG_WBMP));
+        $this->assertEquals('width="600" height="450"', $data['attributes']);
+        $this->assertTrue($data['is_landscape']);
+        $this->assertFalse($data['is_portrait']);
 
         $this->assertEquals(
             json_encode([
