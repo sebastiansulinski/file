@@ -87,7 +87,7 @@ class Size
      */
     public function inKiloBytes(int $decimal = 2): float
     {
-        return number_format($this->size / static::KB_MULTIPLY_VALUE, $decimal);
+        return (float)number_format($this->size / static::KB_MULTIPLY_VALUE, $decimal);
     }
 
     /**
@@ -110,7 +110,7 @@ class Size
      */
     public function inMegaBytes(int $decimal = 2): float
     {
-        return number_format($this->size / static::MB_MULTIPLY_VALUE, $decimal);
+        return (float)number_format($this->size / static::MB_MULTIPLY_VALUE, $decimal);
     }
 
     /**
