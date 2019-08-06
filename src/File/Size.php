@@ -2,8 +2,6 @@
 
 namespace SSD\File;
 
-use SSD\File\Exception\MethodNotFound;
-
 class Size
 {
     /**
@@ -150,18 +148,5 @@ class Size
             'megabytes' => $this->inMegaBytes(),
             'megabytes_postfix' => $this->inMegaBytesPostfix(),
         ]);
-    }
-
-    /**
-     * Delegate method call.
-     *
-     * @param  string $name
-     * @param  array $arguments
-     * @return mixed
-     * @throws \SSD\File\Exception\MethodNotFound
-     */
-    public function __call(string $name, array $arguments = [])
-    {
-        throw new MethodNotFound;
     }
 }
