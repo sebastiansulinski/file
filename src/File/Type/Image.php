@@ -53,7 +53,7 @@ class Image extends BaseType
             $this->width,
             $this->height,
             $this->type,
-            $this->attributes
+            $this->attributes,
         ] = getimagesize($this->file->path());
     }
 

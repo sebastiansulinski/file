@@ -49,7 +49,7 @@ class Size
     /**
      * Size constructor.
      *
-     * @param \SSD\File\File $file
+     * @param  \SSD\File\File $file
      */
     public function __construct(File $file)
     {

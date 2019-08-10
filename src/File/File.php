@@ -66,8 +66,8 @@ class File
     /**
      * Check if file exists.
      *
-     * @throws \SSD\File\Exception\InvalidArgument
      * @return void
+     * @throws \SSD\File\Exception\InvalidArgument
      */
     private function validateFile(): void
     {
