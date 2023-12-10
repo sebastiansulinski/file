@@ -4,9 +4,6 @@ File information package
 File information package for different file types.
 Currently contains only Image file type implementation.
 
-[![Build Status](https://travis-ci.org/sebastiansulinski/file.svg?branch=master)](https://travis-ci.org/sebastiansulinski/file)
-
-
 ## Usage
 
 ```php
